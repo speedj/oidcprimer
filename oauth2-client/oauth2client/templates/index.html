@@ -3,9 +3,9 @@
   <div class="panel-body text-center">
     <h1>Hey there!</h1>
   </div>
-  <h2>Client Auth Request</h2>
-  <h3>Authentication Server</h3>
-  <p>Base URL: {{ as_auth_url }}</p>
+  <h2>Authorization Request</h2>
+  <h3>Authorization Server</h3>
+  <p>Authorization Endpoint: {{ as_auth_url }}</p>
   <h3>Parameters</h3>
   <table class="table table-bordered table-striped">
     <thead>
@@ -19,13 +19,13 @@
       <tr><td>scope</td><td>{{ scope }}</td></tr>
     </tbody>
   </table>
-  <h3>Full Auth URL</h3>
+  <h3>Full HTTP Authorization Request</h3>
   <pre class="lead">
-      {{ full_as_auth_url }}
+{{ full_as_auth_url_print }}
   </pre>
   <div class="panel-body text-center">
     <a href="{{ full_as_auth_url }}" class="btn btn-primary btn-lg" role="button">
-      Get an Authorization Code
+      Request authorization and get and authorization code
     </a>
   </div>
 </div>

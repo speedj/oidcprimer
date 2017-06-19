@@ -1,16 +1,16 @@
 # OAuth2 Course - Simple Client
 
-This very simple OAuth2 client implements the OAuth2 Authorization Code Grant, showing each HTTP request/response between the Client, the Authentication Server, and
+This very simple OAuth2 client implements the OAuth2 Authorization Code Grant, showing each HTTP request/response between the Client, the Authorization Server, and
 finally the Resource Server. It can be freely used in courses about OAuth2.
 
 ## How to run
 
 In order to use this simple client, open config.py and setup:
 - a SECRET_KEY (see instruction in config.py)
-- an Authentication Server Authorization URL in AS_AUTH_URL (or uncomment the Github one)
-- an Authentication Server Tokent URL (or uncomment the Github one)
+- an Authorization Server Authorization Endpoint in AS_AUTH_URL (or uncomment the Github one)
+- an Authorization Server Token Endpoint (or uncomment the Github one)
 - a Resource Server API URL (or uncomment the Github one)
-- OAuth2 CLIENT_ID and CLIENT_SECRET (provided by your Authentication Server)
+- OAuth2 CLIENT_ID and CLIENT_SECRET (provided by your Authorization Server)
 - the OAuth2 Client REDIRECT_URI, composed by your base URL + ':9000/cb'
 
 ## Virtualenv
