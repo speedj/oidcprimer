@@ -1,0 +1,32 @@
+{% extends "/layout.html" %} {% block main %}
+<div class="container lead">
+  <div class="panel-body text-center">
+    <h1>Hey there!</h1>
+  </div>
+  <h2>Client Auth Request</h2>
+  <h3>Authentication Server</h3>
+  <p>Base URL: {{ as_auth_url }}</p>
+  <h3>Parameters</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr><th>Parameter</th><th>Current Value</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>response_type</td><td>code</td></tr>
+      <tr><td>client_id</td><td>{{ client_id }}</td></tr>
+      <tr><td>redirect_uri</td><td>{{ redirect_uri }}</td></tr>
+      <tr><td>state</td><td>{{ state }}</td></tr>
+      <tr><td>scope</td><td>{{ scope }}</td></tr>
+    </tbody>
+  </table>
+  <h3>Full Auth URL</h3>
+  <pre class="lead">
+      {{ full_as_auth_url }}
+  </pre>
+  <div class="panel-body text-center">
+    <a href="{{ full_as_auth_url }}" class="btn btn-primary btn-lg" role="button">
+      Get an Authorization Code
+    </a>
+  </div>
+</div>
+{% endblock %}

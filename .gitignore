@@ -1,0 +1,6 @@
+*.pyc
+*.class
+*.jar
+
+**/.classpath
+**/.settings

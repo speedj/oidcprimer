@@ -1,0 +1,44 @@
+{% extends "/layout.html" %} {% block main %}
+<div class="container lead">
+  <div class="panel-body text-center">
+    <h1>The Access Token Response</h1>
+  </div>
+  <div class="panel-body">
+    <p>We got our access token, let's have a look...</p>
+  </div>
+  <h2>The raw response</h2>
+  <p>We requested a json response passing the following header content:
+    <code>accept: application/json</code>
+  </p>
+  <p>This is what we got:</p>
+  <pre>
+    <code>
+      {{ raw_response }}
+    </code>
+  </pre>
+  <h3>Access Token Response parts</h3>
+  <table class="table-bordered table-striped">
+    <thead>
+      <tr><th>Parameter</th><th>Current Value</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>access_token</td><td>{{ access_token }}</td></tr>
+      <tr><td>token_type</td><td>{{ token_type }}</td></tr>
+      <tr><td>scope</td><td>{{ scope }}</td></tr>
+    </tbody>
+  </table>
+  <h3>Use the Token</h3>
+  <p>Let's use the received token to access some user info calling the
+    github API endpoint passing the access_token through HTTP headers.</p>
+  <pre class="lead">
+    GET /user HTTP/1.1
+    Host: api.github.com
+    Authorization: Bearer {{ access_token }}
+  </pre>
+  <div class="panel-body text-center">
+    <a href="{{ url_for('resource') }}"  class="btn btn-primary btn-lg" role="button">
+      Access protected resources
+    </a>
+  </div>
+</div>
+{% endblock %}
