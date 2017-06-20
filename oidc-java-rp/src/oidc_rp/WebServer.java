@@ -7,10 +7,15 @@ import static spark.SparkBase.port;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.MessageFormat;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
 
-import utils.FileHandling;
+import org.apache.commons.io.Charsets;
 
+import com.google.common.collect.Maps;
+import com.google.common.io.Resources;
+import com.hubspot.jinjava.Jinjava;
 import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
 import com.nimbusds.oauth2.sdk.AuthorizationCode;
 import com.nimbusds.oauth2.sdk.ParseException;
@@ -37,7 +42,8 @@ public class WebServer {
 
 	public static void main(String[] args) throws ParseException, IOException,
 			URISyntaxException, SerializeException {
-		String jsonMetadata = FileHandling.readFromFile("client.json");
+		
+		String jsonMetadata = new String(Files.readAllBytes(Paths.get("/opt/oidcprimer/client.json")), Charsets.UTF_8);
 		Client client = new Client(jsonMetadata);
 
 		/*** Spark webserver setup ***/
@@ -46,14 +52,14 @@ public class WebServer {
 		/*** Spark webserver routes ***/
 
 		/* displays the main page */
-		get("/", (req, res) -> FileHandling.readFromFile("index.html"));
+		get("/", (req, res) -> drawTemplate("index.html"));
 
 		/*
 		 * where the authentication response from the provider is received when
 		 * using implicit or hybrid flow
 		 */
 		get("/implicit_flow_callback",
-				(req, res) -> FileHandling.readFromFile("repost_fragment.html"));
+				(req, res) -> drawTemplate("repost_fragment.html"));
 
 		/*
 		 * starts authentication using the OpenID Connect code flow
@@ -77,6 +83,14 @@ public class WebServer {
 			response.status(404);
 			response.body("Resource not found: " + e);
 		});
+	}
+	
+	private static String drawTemplate(String templateName) throws IOException {
+		Jinjava jinjava = new Jinjava();
+		Map<String, Object> context = Maps.newHashMap();
+
+		String template = Resources.toString(Resources.getResource(templateName), Charsets.UTF_8);
+		return jinjava.render(template, context);
 	}
 
 	/**
@@ -115,8 +129,15 @@ public class WebServer {
 		} else {
 			userInfoString.append("null");
 		}
-		String successPage = FileHandling.readFromFile("success_page.html");
-		return MessageFormat.format(successPage, authCode, accessToken,
-				idTokenString, userInfoString);
+		
+		Jinjava jinjava = new Jinjava();
+		Map<String, Object> context = Maps.newHashMap();
+		context.put("auth_code", authCode);
+		context.put("access_token", accessToken);
+		context.put("id_token_claims", idTokenString);
+		context.put("userinfo", userInfoString);
+
+		String template = Resources.toString(Resources.getResource("success_page.html"), Charsets.UTF_8);
+		return jinjava.render(template, context);
 	}
 }
