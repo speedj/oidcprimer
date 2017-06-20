@@ -1,6 +1,13 @@
 {
     "require": {
         "silex/silex": "~2.0",
-	"twig/twig": "~1.0"
+	"twig/twig": "~1.0",
+        "php": ">=5.4",
+        "phpseclib/phpseclib" : "2.0.1",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "classmap": ["OpenIDConnectClient.php"]
     }
 }
