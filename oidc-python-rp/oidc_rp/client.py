@@ -22,7 +22,6 @@ __author__ = 'regu0004'
 class Client(object):
     # TODO specify the correct URL
     ISSUER = "https://mitreid.org/"
-
     flow = 'implicit'
     scope = ['openid', 'profile', 'email']
 
@@ -47,8 +46,6 @@ class Client(object):
         self.client = OIDCClient(client_authn_method=CLIENT_AUTHN_METHOD)
 
         # TODO get the provider configuration information
-        uid = "fake_user@mitreid.org"
-        #self.ISSUER = self.client.discover(uid)
         provider_info = self.client.provider_config(self.ISSUER)
 
         # TODO register with the provider using the client_metadata
