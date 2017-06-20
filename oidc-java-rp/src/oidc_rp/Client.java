@@ -76,46 +76,24 @@ public class Client {
 		
 		flow = "code";
 		
-		// TODO obtain provider configuration information
+		// obtain provider configuration information
 		obtainProviderInformation();
 
-		// TODO register client
+		// register client
 		OIDCClientMetadata clientMetadata = OIDCClientMetadata.parse(JSONObjectUtils.parse(clientMetadataString));
 		registerClient(clientMetadata);
 	}
 
-	private void obtainProviderInformation()
-			throws URISyntaxException, MalformedURLException, IOException, ParseException {
-		
-		URI issuerURI = new URI(ISSUER);
-		URL providerConfigurationURL = issuerURI.resolve("/.well-known/openid-configuration").toURL();
-		InputStream pcStream = providerConfigurationURL.openStream();
-		// Read all data from URL
-		String providerInfo = null;
-		try (java.util.Scanner s = new java.util.Scanner(pcStream)) {
-			providerInfo = s.useDelimiter("\\A").hasNext() ? s.next() : "";
-		}
-		providerMetadata = OIDCProviderMetadata.parse(providerInfo);
+	private void obtainProviderInformation() throws URISyntaxException, MalformedURLException, IOException, ParseException {
+		// TODO obtain provide information and save them in providerMetadata
 	}
 
-	private void registerClient(OIDCClientMetadata clientMetadata)
-			throws IOException, SerializeException, ParseException {
-		// Make registration request
-		OIDCClientRegistrationRequest registrationRequest = new OIDCClientRegistrationRequest(
-				providerMetadata.getRegistrationEndpointURI(), clientMetadata, null);
-		HTTPResponse regHTTPResponse = registrationRequest.toHTTPRequest().send();
+	private void registerClient(OIDCClientMetadata clientMetadata) throws IOException, SerializeException, ParseException {
+		// TODO Make registration request
 
-		// Parse and check response
-		ClientRegistrationResponse registrationResponse = OIDCClientRegistrationResponseParser.parse(regHTTPResponse);
+		// TODO Parse and check response
 
-		if (registrationResponse instanceof ClientRegistrationErrorResponse) {
-			ErrorObject error = ((ClientRegistrationErrorResponse) registrationResponse).getErrorObject();
-			// TODO error handling
-			throw new IOException(error.toString());
-		}
-
-		// Store client information from OP
-		clientInformation = ((OIDCClientInformationResponse) registrationResponse).getOIDCClientInformation();
+		// TODO Store client information from OP in clientInformation
 	}
 	
 	private ResponseType getResponeTypeForAuth() {
@@ -175,114 +153,21 @@ public class Client {
 		String url = req.url() + "?" + req.raw().getQueryString();
 
 		// TODO parse authentication response from url
-		AuthenticationSuccessResponse authResponse = parseAuthenticationResponse(session, url);
-		AuthorizationCode authCode = authResponse.getAuthorizationCode();
+
 		// TODO make token request
-		OIDCAccessTokenResponse accessTokenResponse = getAccessTokenWithTokenRequest(authCode);
 
 		// TODO validate the ID Token according to the OpenID Connect spec (sec 3.1.3.7.)
-		ReadOnlyJWTClaimsSet idTokenClaims = verifyIdToken(accessTokenResponse.getIDToken(), providerMetadata);
-		AccessToken accessToken = accessTokenResponse.getAccessToken();
 
 		// TODO make userinfo request
-		UserInfoSuccessResponse successUIResponse = getUserInfoWithRequest(accessToken);
 
 		// TODO set the appropriate values
-		String parsedIdToken = accessTokenResponse.getIDToken().toString();
+		AuthorizationCode authCode = null;
+		AccessToken accessToken = null;
+		String idToken = null;
+		ReadOnlyJWTClaimsSet idTokenClaims = null;
+		UserInfoSuccessResponse userInfoResponse = null;
 
-		return WebServer.successPage(authCode, accessToken, parsedIdToken, idTokenClaims, successUIResponse);
-	}
-
-	private UserInfoSuccessResponse getUserInfoWithRequest(AccessToken accessToken) throws IOException {
-		UserInfoRequest userInfoReq = new UserInfoRequest(providerMetadata.getUserInfoEndpointURI(),
-				(BearerAccessToken) accessToken);
-
-		HTTPResponse userInfoHTTPResp = null;
-		try {
-			userInfoHTTPResp = userInfoReq.toHTTPRequest().send();
-		} catch (SerializeException | IOException e) {
-			// TODO proper error handling
-		}
-
-		UserInfoResponse userInfoResponse = null;
-		try {
-			userInfoResponse = UserInfoResponse.parse(userInfoHTTPResp);
-		} catch (ParseException e) {
-			// TODO proper error handling
-			throw new IOException(e);
-		}
-
-		if (userInfoResponse instanceof UserInfoErrorResponse) {
-			ErrorObject error = ((UserInfoErrorResponse) userInfoResponse).getErrorObject();
-			// TODO error handling
-			throw new IOException(error.toString());
-		}
-
-		UserInfoSuccessResponse successUIResponse = (UserInfoSuccessResponse) userInfoResponse;
-		return successUIResponse;
-	}
-
-	private OIDCAccessTokenResponse getAccessTokenWithTokenRequest(AuthorizationCode authCode) throws IOException {
-		System.err.println("at -> " + authCode + " - " + clientInformation.getID());
-		TokenRequest tokenReq = new TokenRequest(providerMetadata.getTokenEndpointURI(),
-				new ClientSecretBasic(clientInformation.getID(), clientInformation.getSecret()),
-				new AuthorizationCodeGrant(authCode, getRedirectUriForAuth()));
-
-		HTTPResponse tokenHTTPResp = null;
-		try {
-			tokenHTTPResp = tokenReq.toHTTPRequest().send();
-		} catch (SerializeException | IOException e) {
-			// TODO proper error handling
-			throw new IOException(e);
-		}
-
-		// Parse and check response
-		TokenResponse tokenResponse = null;
-		try {
-			tokenResponse = OIDCTokenResponseParser.parse(tokenHTTPResp);
-		} catch (ParseException e) {
-			// TODO proper error handling
-			throw new IOException(e);
-		}
-
-		if (tokenResponse instanceof TokenErrorResponse) {
-			ErrorObject error = ((TokenErrorResponse) tokenResponse).getErrorObject();
-			// TODO error handling
-			throw new IOException(error.toString());
-		}
-
-		OIDCAccessTokenResponse accessTokenResponse = (OIDCAccessTokenResponse) tokenResponse;
-		return accessTokenResponse;
-	}
-
-	private AuthenticationSuccessResponse parseAuthenticationResponse(Session session, String authResponseURI) throws IOException {
-		AuthenticationResponse authResp = null;
-		try {
-			authResp = AuthenticationResponseParser.parse(new URI(authResponseURI));
-		} catch (ParseException | URISyntaxException e) {
-			// TODO error handling
-			throw new IOException(e);
-		}
-
-		if (authResp instanceof AuthenticationErrorResponse) {
-			ErrorObject error = ((AuthenticationErrorResponse) authResp).getErrorObject();
-			// TODO error handling
-			throw new IOException(error.toString());
-		}
-
-		AuthenticationSuccessResponse successResponse = (AuthenticationSuccessResponse) authResp;
-
-		/*
-		 * Don't forget to check the state! The state in the received
-		 * authentication response must match the state specified in the
-		 * previous outgoing authentication request.
-		 */
-		if (!session.attribute("state").equals(successResponse.getState())) {
-			// TODO proper error handling
-			throw new IOException("Wrong state.");
-		}
-
-		return successResponse;
+		return WebServer.successPage(authCode, accessToken, idToken, idTokenClaims, userInfoResponse);
 	}
 
 	public String implicitFlowCallback(Request req, Response res) throws IOException {
@@ -292,21 +177,22 @@ public class Client {
 		String url = req.url() + "#" + req.queryParams("url_fragment");
 
 		// TODO parse authentication response from url
-		AuthenticationSuccessResponse authResponse = parseAuthenticationResponse(session, url);
+
 		// TODO validate the ID Token according to the OpenID Connect spec (sec 3.2.2.11.)
-		ReadOnlyJWTClaimsSet idTokenClaims = verifyIdToken(authResponse.getIDToken(), providerMetadata);
-		AccessToken accessToken = authResponse.getAccessToken();
 
 		// TODO set the appropriate values
-		AuthorizationCode authCode = null;
 		
 		// TODO make userinfo request
-		UserInfoSuccessResponse successUIResponse = getUserInfoWithRequest(accessToken);
 
 		// TODO set the appropriate values
-		String parsedIdToken = authResponse.getIDToken().toString();
 
-		return WebServer.successPage(authCode, accessToken, parsedIdToken, idTokenClaims, successUIResponse);
+		AuthorizationCode authCode = null;
+		AccessToken accessToken = null;
+		String idToken = null;
+		ReadOnlyJWTClaimsSet idTokenClaims = null;
+		UserInfoSuccessResponse userInfoResponse = null;
+
+		return WebServer.successPage(authCode, accessToken, idToken, idTokenClaims, userInfoResponse);
 	}
 
 	private ReadOnlyJWTClaimsSet verifyIdToken(JWT idToken, OIDCProviderMetadata providerMetadata) {
