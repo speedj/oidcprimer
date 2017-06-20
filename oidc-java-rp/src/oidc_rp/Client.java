@@ -6,8 +6,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -65,8 +63,6 @@ import spark.Response;
 import spark.Session;
 
 public class Client {
-	// TODO specify the correct path
-	public static Path ROOT_PATH = Paths.get("/opt/openid_course");
 	// TODO specify the correct URL
 	public static String ISSUER = "https://mitreid.org/";
 	
@@ -90,27 +86,6 @@ public class Client {
 
 	private void obtainProviderInformation()
 			throws URISyntaxException, MalformedURLException, IOException, ParseException {
-		/*
-		String userid = "fake_user@mitreid.org";
-		
-		URI webfingerURI = new URI("https://" + userid.split("@")[1]);
-		String query = "resource=acct:" + userid + "&rel=http://openid.net/specs/connect/1.0/issuer";
-		URL webfingerURL = new URL(webfingerURI.resolve("/.well-known/webfinger").toString() + "?" + query);
-		InputStream wfStream = webfingerURL.openStream();
-		// Read all data from URL
-		String webFingerInfo = null;
-		try (java.util.Scanner s = new java.util.Scanner(wfStream)) {
-			webFingerInfo = s.useDelimiter("\\A").hasNext() ? s.next() : "";
-		}
-		
-		JSONArray links = (JSONArray) JSONObjectUtils.parse(webFingerInfo).get("links");
-		for (Object object : links) {
-			JSONObject link = (JSONObject) object;
-			if (link.get("rel").equals("http://openid.net/specs/connect/1.0/issuer")) {
-				ISSUER = link.get("href").toString();
-			}
-		}
-		*/
 		
 		URI issuerURI = new URI(ISSUER);
 		URL providerConfigurationURL = issuerURI.resolve("/.well-known/openid-configuration").toURL();
