@@ -1,0 +1,4 @@
+git+https://github.com/rohe/pyoidc.git
+cherrypy==3.8.0
+Flask==0.12.2
+Flask-Bootstrap==3.3.7.1

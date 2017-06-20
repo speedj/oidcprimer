@@ -1,4 +1,3 @@
-import os
 from oic.oic import Client as OIDCClient
 from oic.oic.message import AuthorizationResponse, IdToken, Message
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
@@ -21,8 +20,6 @@ except ImportError:
 __author__ = 'regu0004'
 
 class Client(object):
-    # TODO specify the correct path
-    ROOT_PATH = "/opt/openid_course/"
     # TODO specify the correct URL
     ISSUER = "https://mitreid.org/"
 
@@ -114,7 +111,12 @@ class Client(object):
 
         # TODO set the appropriate values
         access_token = resp['access_token']
-        return success_page(access_code, access_token, id_token_claims, userinfo)
+        return {
+            'auth_code': access_code,
+            'access_token': access_token,
+            'id_token_claims': id_token_claims,
+            'userinfo': userinfo
+        }
 
     def implicit_flow_callback(self, auth_response, session):
         # TODO parse the authentication response
@@ -133,15 +135,9 @@ class Client(object):
         access_code = None
         access_token = aresp['access_token']
 
-        return success_page(access_code, access_token, id_token_claims, userinfo)
-
-
-def success_page(auth_code, access_token, id_token_claims, userinfo):
-    html_page = read_from_file("success_page.html")
-    return html_page.format(auth_code, access_token, id_token_claims, userinfo)
-
-
-def read_from_file(path):
-    full_path = os.path.join(Client.ROOT_PATH, path)
-    with open(full_path, "r") as f:
-        return f.read()
+        return {
+            'auth_code': access_code,
+            'access_token': access_token,
+            'id_token_claims': id_token_claims,
+            'userinfo': userinfo
+        }

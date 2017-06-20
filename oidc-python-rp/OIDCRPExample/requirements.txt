@@ -1,2 +1,0 @@
-git+https://github.com/rohe/pyoidc.git
-cherrypy==3.8.0
