@@ -74,7 +74,7 @@ public class Client {
 	public Client(String clientMetadataString)
 			throws ParseException, URISyntaxException, IOException, SerializeException {
 		
-		flow = "implicit";
+		flow = "code";
 		
 		// TODO obtain provider configuration information
 		obtainProviderInformation();
