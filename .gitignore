@@ -1,6 +1,10 @@
+*~
 *.pyc
 *.class
 *.jar
 
 **/.classpath
 **/.settings
+**/vendor
+**/composer.lock
+**/composer.phar
