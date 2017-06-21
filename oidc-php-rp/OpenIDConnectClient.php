@@ -469,7 +469,6 @@ class OpenIDConnectClient
         if (sizeof($this->responseTypes) > 0) {
             $auth_params = array_merge($auth_params, array('response_type' => implode(' ', $this->responseTypes)));
         }
-
         $auth_endpoint .= (strpos($auth_endpoint, '?') === false ? '?' : '&') . http_build_query($auth_params, null, '&');
 
         session_commit();
