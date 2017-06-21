@@ -25,11 +25,6 @@ $app['oidc'] = function () use ($app) {
 };
 
 
-$app->get('/twighello/{name}', function ($name) use ($app) {
-    return $app['twig']->render('twighello.html', 
-				array('name' => $name));
-  });
-
 $app->get('/oidc-rp', function () use ($app) {
     $oidc = $app['oidc'];
     if ($oidc) {
