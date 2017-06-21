@@ -23,3 +23,4 @@ php composer.phar install
 ```
 php -S localhost:8080 -t oidc_rp oidc_rp/index.php
 ```
+Connect to http://localhost:8080/oidc-rp

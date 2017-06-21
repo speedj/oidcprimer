@@ -240,8 +240,8 @@ class OpenIDConnectClient
                 throw new OpenIDConnectClientException("Unable to determine state");
             }
 		
-	    // Cleanup state
-	    $this->unsetState();
+            // Cleanup state
+            $this->unsetState();
 
             if (!property_exists($token_json, 'id_token')) {
                 throw new OpenIDConnectClientException("User did not authorize openid scope.");
@@ -251,7 +251,7 @@ class OpenIDConnectClient
 
             // Verify the signature
             if ($this->canVerifySignatures()) {
-		if (!$this->getProviderConfigValue('jwks_uri')) {
+                if (!$this->getProviderConfigValue('jwks_uri')) {
                     throw new OpenIDConnectClientException ("Unable to verify signature due to no jwks_uri being defined");
                 }
                 if (!$this->verifyJWTsignature($token_json->id_token)) {
@@ -280,7 +280,7 @@ class OpenIDConnectClient
                 if (isset($token_json->refresh_token)) $this->refreshToken = $token_json->refresh_token;
 
                 // Success!
-                return true;
+                return $code;
 
             } else {
                 throw new OpenIDConnectClientException ("Unable to verify JWT claims");
