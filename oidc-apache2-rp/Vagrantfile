@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$install_apache2 = <<SCRIPT
+apt-get update
+apt-get install -y apache2
+apt-get install -y libjansson4
+apt-get install -y libhiredis0.10
+apt-get install -y php5
+cd /
+tar xf /vagrant/oidc-rp.tar
+cd /tmp
+wget https://github.com/pingidentity/mod_auth_openidc/releases/download/v2.3.0/libapache2-mod-auth-openidc_2.3.0-1.jessie.1_amd64.deb 
+wget https://github.com/pingidentity/mod_auth_openidc/releases/download/v2.3.0/libcjose0_0.5.1-1.jessie.1_amd64.deb
+dpkg -i /tmp/libcjose0_0.5.1-1.jessie.1_amd64.deb
+dpkg -i /tmp/libapache2-mod-auth-openidc_2.3.0-1.jessie.1_amd64.deb 
+
+SCRIPT
+
+Vagrant.configure(2) do |config|
+  config.vm.box = 'debian/jessie64'
+  config.vm.provision 'shell', inline: $install_apache2
+  config.vm.network :forwarded_port, guest: 8090, host: 8090
+end
