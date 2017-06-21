@@ -21,5 +21,6 @@ php composer.phar install
 ## Run the Relying Party
 
 ```
-php -S localhost:8080 -t oidc_rp oidc_rp/index.php
+php -S 0.0.0.0:8090 -t oidc_rp oidc_rp/index.php
 ```
+Connect to http://localhost:8090/
