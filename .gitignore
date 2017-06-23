@@ -3,6 +3,7 @@
 *.class
 *.jar
 *.log
+\#*\#
 
 **/.classpath
 **/.settings
