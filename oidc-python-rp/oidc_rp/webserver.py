@@ -29,6 +29,8 @@ def implicit_flow_callback():
 def success_page(info):
     return render_template(
         'success_page.html',
+        client_id=info['client_id'],
+        client_secret=info['client_secret'],
         auth_code=info['auth_code'],
         access_token=info['access_token'],
         id_token_claims=info['id_token_claims'],
