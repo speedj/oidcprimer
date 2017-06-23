@@ -43,7 +43,7 @@ public class WebServer {
 	public static void main(String[] args) throws ParseException, IOException,
 			URISyntaxException, SerializeException {
 		
-		String jsonMetadata = new String(Files.readAllBytes(Paths.get("/opt/oidcprimer/client.json")), Charsets.UTF_8);
+		String jsonMetadata = new String(Files.readAllBytes(Paths.get("/home/davide/dev/oidcprimer/client.json")), Charsets.US_ASCII);
 		Client client = new Client(jsonMetadata);
 
 		/*** Spark webserver setup ***/
@@ -95,6 +95,8 @@ public class WebServer {
 
 	/**
 	 * Build HTML summary of a successful authentication flow.
+	 * @param clientSecret 
+	 * @param clientID 
 	 *
 	 * @param authCode
 	 *            authorization code obtained from authentication response
@@ -106,7 +108,7 @@ public class WebServer {
 	 *            response to the user info request
 	 * @return response containing HTML formatted summary.
 	 */
-	public static String successPage(AuthorizationCode authCode,
+	public static String successPage(String clientID, String clientSecret, AuthorizationCode authCode,
 			AccessToken accessToken, String idToken,
 			ReadOnlyJWTClaimsSet idTokenClaims,
 			UserInfoSuccessResponse userInfoResponse) throws IOException {
@@ -132,6 +134,8 @@ public class WebServer {
 		
 		Jinjava jinjava = new Jinjava();
 		Map<String, Object> context = Maps.newHashMap();
+		context.put("client_id", clientID);
+		context.put("client_secret", clientSecret);
 		context.put("auth_code", authCode);
 		context.put("access_token", accessToken);
 		context.put("id_token_claims", idTokenString);
