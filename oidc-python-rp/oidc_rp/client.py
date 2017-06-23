@@ -40,24 +40,50 @@ class Client(object):
             return None
 
     def __init__(self, client_metadata):
+
         self.flow = 'code'
         self.client = OIDCClient(client_authn_method=CLIENT_AUTHN_METHOD)
 
+        # TODO set the client redirection_uris
+        
         # TODO get the provider configuration information
 
-        # TODO register with the provider using the client_metadata
+        # PLEASE NOTE: client_metadata['client_id'] is None at first, cause
+        # you didn't already registered your client. That is ok, since it
+        # will trigger dynamic registration.
+        # Once registered, you'll get client_id and client_secret in the
+        # success page. Insert them in the clients.json file in the following
+        # key/value pairs: 
+        #
+        # [..]
+        #     "client_id": null,
+        #     "client_secret": null
+        # [..]
+        #
+        # Failing to do that will cause the client to register again each
+        # time you authenticate.
+        #
+        
+        client_id = client_metadata['client_id']
+        client_secret = client_metadata['client_secret']
 
-        # TODO check registration response
+        if not(client_id and client_secret):
+            # TODO register with the provider using the client_metadata
+            # TODO check registration response
+            # TODO remove the below "pass" once done, thanks
+            pass
+        else:
+            # TODO set client_id and client_secret in the client object
 
     def authenticate(self, session):
         # Use the session object to store state between requests
 
-        # TODO make authentication request
+        # TODO make authorization request
         login_url = obtain_it_from_authorization_request
         return login_url
 
     def code_flow_callback(self, auth_response, session):
-        # TODO parse the authentication response
+        # TODO parse the authorizaton response
 
         # TODO make token request
 
@@ -66,12 +92,17 @@ class Client(object):
         # TODO make userinfo request
 
         # TODO set the appropriate values
+        client_id = ''
+        client_secret = ''
         access_code = ''
         access_token = ''
         id_token_claims = ''
         userinfo = ''
+        
 
         return {
+            'client_id': client_id,
+            'client_secret': client_secret,
             'auth_code': access_code,
             'access_token': access_token,
             'id_token_claims': id_token_claims,
@@ -86,12 +117,16 @@ class Client(object):
         # TODO make userinfo request
 
         # TODO set the appropriate values
+        client_id = ''
+        client_secret = ''
         access_code = ''
         access_token = ''
         id_token_claims = ''
         userinfo = ''
 
         return {
+            'client_id': client_id,
+            'client_secret': client_secret,
             'auth_code': access_code,
             'access_token': access_token,
             'id_token_claims': id_token_claims,
