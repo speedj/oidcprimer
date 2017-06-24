@@ -48,7 +48,7 @@ class Client(object):
         
         # TODO get the provider configuration information
 
-        # PLEASE NOTE: client_metadata['client_id'] is None at first, cause
+        # PLEASE NOTE: client_id and client_secret are null at first, cause
         # you didn't already registered your client. That is ok, since it
         # will trigger dynamic registration.
         # Once registered, you'll get client_id and client_secret in the

@@ -21,6 +21,25 @@ $app['oidc'] = function () use ($app) {
     $client_config = json_decode($string, true);
     $oidc = array();
 
+
+    /* 
+       PLEASE NOTE: client_id and client_secret are null at first, cause
+       you didn't already registered your client. That is ok, since it
+       will trigger dynamic registration.
+       Once registered, you'll get client_id and client_secret in the
+       success page. Insert them in the clients.json file in the following
+       key/value pairs: 
+       
+       [..]
+          "client_id": null,
+          "client_secret": null
+       [..]
+        
+       Failing to do that will cause the client to register again each
+       time you authenticate.
+       
+    */
+
     $client_id = $client_config['client_id'];
     $client_secret = $client_config['client_secret'];
 

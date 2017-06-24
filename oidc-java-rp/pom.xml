@@ -7,6 +7,11 @@
   <description>Simple example of an OpenID Connect Relying Party using "Nimbus OAuth 2.0 SDK with OpenID Connect extensions"</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <resources>
+    	<resource>
+    		<directory>resources</directory>
+    	</resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -33,6 +38,16 @@
 	    <groupId>com.hubspot.jinjava</groupId>
 	    <artifactId>jinjava</artifactId>
 	    <version>2.0.11-java7</version>
+	</dependency>
+	<dependency>
+    	<groupId>javax.json</groupId>
+    	<artifactId>javax.json-api</artifactId>
+    	<version>1.1</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.glassfish</groupId>
+   		 <artifactId>javax.json</artifactId>
+    	<version>1.0.4</version>
 	</dependency>
   </dependencies>
 </project>

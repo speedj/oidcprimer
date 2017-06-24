@@ -3,9 +3,11 @@
 *.class
 *.jar
 *.log
+\#*\#
 
 **/.classpath
 **/.settings
 **/vendor
 **/composer.lock
 **/composer.phar
+**/target
