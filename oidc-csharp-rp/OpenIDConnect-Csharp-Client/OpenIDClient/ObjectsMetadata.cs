@@ -172,7 +172,8 @@ namespace OpenIDClient
         {
             if (Use == null)
             {
-                throw new OIDCException("The use parameter is missing in key.");
+                //Disabled control, since mitreid.org is not respecting this spec.
+                //throw new OIDCException("The use parameter is missing in key.");
             }
         }
     }
