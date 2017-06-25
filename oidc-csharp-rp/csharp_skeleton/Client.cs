@@ -14,7 +14,7 @@ namespace OICClient
         IJsonSerializer JsonSerializer = new DefaultJsonSerializer();
 
         // TODO specify the correct path
-		public static string ROOT_PATH = @"/home/andrea/Documents/uni/research/cs/openid_course";
+		public static string ROOT_PATH = @"../../../../";
 
         // TODO specify the correct URL
         public static string ISSUER = null;
@@ -32,11 +32,7 @@ namespace OICClient
             // To test with Google accounts, deccoment following line, configure an OpenID client on Google platform
             // and then add to client.json the cliend_id and client_secret obtained from Google.
             //ISSUER = "https://accounts.google.com";
-            if (ISSUER == null)
-            {
-                String userid = "fake_user@op1.test.inacademia.org";
-                ISSUER = ObtainIssuerFromEmail(userid);
-            }
+            ISSUER = "https://mitreid.org";
             providerMetadata = ObtainProviderInformation(ISSUER);
 
             // TODO register client
