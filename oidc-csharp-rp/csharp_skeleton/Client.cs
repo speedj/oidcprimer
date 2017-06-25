@@ -54,11 +54,19 @@ namespace OICClient
 		    // use the session object to store state between requests
             session["nonce"] = RandomString();
             session["state"] = RandomString();
-            
-		    // TODO make authentication request
-            
+
+            // TODO make authentication request
+            OIDCAuthorizationRequestMessage requestMessage = new OIDCAuthorizationRequestMessage();
+            requestMessage.ClientId = clientInformation.ClientId;
+            requestMessage.Scope = "openid profile email";
+            requestMessage.RedirectUri = clientInformation.RedirectUris[0];
+            requestMessage.Nonce = (string)session["nonce"];
+            requestMessage.State = (string)session["state"];
+            requestMessage.ResponseType = clientInformation.ResponseTypes[0];
+
             // TODO insert the redirect URL
-            string login_url = null;
+            string login_url = providerMetadata.AuthorizationEndpoint;
+            login_url += "?" + requestMessage.serializeToQueryString(); 
             res.Redirect(login_url);
             res.Close();
 	    }
