@@ -15,7 +15,7 @@ namespace OICClient
     class Client : OpenIdRelyingParty
     {
         // TODO specify the correct path
-        public static string ROOT_PATH = @"..\..\..";
+        public static string ROOT_PATH = @"..\..\..\..\";
 
         // TODO specify the correct URL
         public static string ISSUER = "https://mitreid.org";
