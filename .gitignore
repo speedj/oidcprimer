@@ -11,3 +11,8 @@
 **/composer.lock
 **/composer.phar
 **/target
+
+**/.vs
+**/obj
+**/bin
+**/packages
