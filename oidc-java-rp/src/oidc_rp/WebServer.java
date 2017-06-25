@@ -31,8 +31,6 @@ import com.nimbusds.openid.connect.sdk.UserInfoSuccessResponse;
  * (http://connect2id.com/products/nimbus-oauth-openid-connect-sdk) for OpenID
  * Connect support.
  *
- * @author Rebecka Gulliksson, rebecka.gulliksson@umu.se
- *
  */
 public class WebServer {
 	/**
