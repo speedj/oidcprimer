@@ -15,10 +15,10 @@ namespace OICClient
     class Client : OpenIdRelyingParty
     {
         // TODO specify the correct path
-        public static string ROOT_PATH = @"C:\Users\Andrea\Documents\projects\openid_course";
+        public static string ROOT_PATH = @"..\..\..";
 
         // TODO specify the correct URL
-        public static string ISSUER = "https://example.com";
+        public static string ISSUER = "https://mitreid.org";
 
         private string flow;
         private OIDCClientInformation clientInformation;
