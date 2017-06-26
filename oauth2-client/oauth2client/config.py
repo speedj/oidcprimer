@@ -7,7 +7,7 @@ TRAP_BAD_REQUEST_ERRORS = True
 ## To generate a secret key in a python shell:
 ## >>> import os
 ## >>> os.urandom(24)
-SECRET_KEY = ''
+SECRET_KEY = '\x942\x19%\xd7\xcdT\x94\x19\xcbu\xc6\xc4z\x9a\x08\x18\xabVOM\xac\xb8\xd9'
 
 # OAuth2 Authorization Server
 ## EXAMPLE: Github Authorization Server endpoints

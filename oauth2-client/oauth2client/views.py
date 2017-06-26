@@ -2,8 +2,20 @@ import random, hashlib, urllib, requests, json, pprint
 from oauth2client import app
 from flask import render_template, url_for, redirect, session, request, Response
 
+def check_config():
+    if (app.config['CLIENT_ID'] == '' or
+        not app.config['CLIENT_SECRET'] or
+        not app.config['AS_AUTH_URL'] or
+        not app.config['AS_TOKEN_URL'] or
+        not app.config['RS_API_URL'] or
+        'YOUR_BASE_URL' in app.config['REDIRECT_URI']):
+        return False
+    return True
+        
 @app.route('/')
 def index():
+    if not check_config():
+        return render_template('instruction.html')    
     state = hashlib.sha256(str(random.random())).hexdigest()
     session['state'] = state
     client_id = app.config['CLIENT_ID']
