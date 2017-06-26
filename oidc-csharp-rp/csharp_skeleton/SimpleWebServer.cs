@@ -117,7 +117,7 @@ namespace SimpleWebServer
                     throw new Exception("Wrong filename.");
             }
 
-			SendResponse(request, response, File.ReadAllText(Path.Combine(Client.ROOT_PATH, fileName)));
+			SendResponse(request, response, File.ReadAllText(Path.Combine(Client.ROOT_PATH, "oidc-csharp-rp", "templates", fileName)));
         }
 
         public static void SendResponse(HttpListenerRequest request, HttpListenerResponse response, String rstr)
@@ -132,7 +132,7 @@ namespace SimpleWebServer
         {
             string stringIdToken = idToken.serializeToJsonString();
             string userInfoString = userInfoResponse.serializeToJsonString();
-			String successPage = File.ReadAllText(Path.Combine(Client.ROOT_PATH, "success_page.html"));
+			String successPage = File.ReadAllText(Path.Combine(Client.ROOT_PATH, "oidc-csharp-rp", "templates", "success_page.html"));
             return String.Format(successPage, authCode, accessToken, stringIdToken, userInfoString);
         }
     }
@@ -163,9 +163,10 @@ namespace SimpleWebServer
     {
         static void Main(string[] args)
         {
-            WebServer ws = new WebServer(8090);
+            int port = 8091;
+            WebServer ws = new WebServer(port);
             ws.Run();
-            Console.WriteLine("A simple webserver. Press a key to quit.");
+            Console.WriteLine($"A simple webserver started on port {port}. Press a key to quit.");
             Console.ReadKey();
             ws.Stop();
         }

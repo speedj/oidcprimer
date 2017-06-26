@@ -71,7 +71,7 @@ namespace OpenIDClient
             }
             byte[] postBytes = Encoding.UTF8.GetBytes(postData);
 
-            webRequest.ContentType = "application/x-www-form-urlencoded";
+            webRequest.ContentType = "application/json";
             webRequest.ContentLength = postBytes.Length;
 
             Stream postStream = webRequest.GetRequestStream();
