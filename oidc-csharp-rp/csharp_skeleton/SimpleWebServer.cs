@@ -163,7 +163,7 @@ namespace SimpleWebServer
     {
         static void Main(string[] args)
         {
-            int port = 8091;
+            int port = 8090;
             WebServer ws = new WebServer(port);
             ws.Run();
             Console.WriteLine($"A simple webserver started on port {port}. Press a key to quit.");
