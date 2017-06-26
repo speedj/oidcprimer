@@ -72,7 +72,7 @@ import spark.Request;
 import spark.Response;
 import spark.Session;
 
-public class ClientSolution {
+public class Client {
 	// TODO specify the correct URL
 	public static String ISSUER = "https://mitreid.org/";
 	
@@ -83,7 +83,7 @@ public class ClientSolution {
 	private OIDCClientInformation clientInformation;
 	private OIDCProviderMetadata providerMetadata;
 
-	public ClientSolution(String clientMetadataString)
+	public Client(String clientMetadataString)
 			throws ParseException, URISyntaxException, IOException, SerializeException {
 		
 		flow = "code";
