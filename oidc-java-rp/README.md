@@ -12,7 +12,7 @@ This document describes how to setup the provided Java code
 
 1. Import the project in Eclipse:
   1. File -> Import -> Maven -> Existing Maven Projects
-    1. Select the ``java_skeleton/`` directory as 'Root Directory' and
+    1. Select the ``oidc-java-rp`` directory as 'Root Directory' and
          press Finish.
          
     1. Make sure you're using the Java SE 8 JRE for the project (see [Eclipse settings](http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftask-choose_config_jre.htm)).  
