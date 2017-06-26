@@ -1,6 +1,5 @@
 # oidcprimer
-This one-day course is an introduction to the next generation identity management and authorisation protocols and
-their constituent components (OAuth2/JW*/OIDC/UMA).
+This one-day course is an introduction to OpenID Connect Relying Party development and implementation.
 
 The second part of the programme includes a more practical look at relevant tools and libraries (in Python, Java and/or PHP).
 

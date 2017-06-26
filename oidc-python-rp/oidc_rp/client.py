@@ -132,7 +132,7 @@ class Client(object):
         id_token_claims.verify()
 
         # TODO make userinfo request
-        userinfo = self.client.do_user_info_request(state=aresp["state"])
+        userinfo = self.client.do_user_info_request(method='GET', state=aresp["state"])
 
         # TODO set the appropriate values
         access_token = resp['access_token']
