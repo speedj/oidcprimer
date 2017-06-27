@@ -74,6 +74,7 @@ class Client(object):
             pass
         else:
             # TODO set client_id and client_secret in the client object
+            pass
 
     def authenticate(self, session):
         # Use the session object to store state between requests
