@@ -24,7 +24,7 @@ Choose one of the following assignments and follow the linked instructions:
 1. Implement a Relying Party in PHP: [instructions](oidc-php-rp/README.md)
 1. Implement a Relying Party in C#: [instructions](oidc-csharp-rp/README.md)
  
-After completing the assignments, experiment with your setup by applying the
-suggested tweaks in [OpenID Connect Parameter options](parameter_exercises.md). 
+
+
 
 All OpenID Connect specifications can be found at http://openid.net/developers/specs/.
