@@ -46,7 +46,8 @@ def index():
         state=state,
         scope=scope,
         as_auth_url=as_auth_url,
-        full_as_auth_url=full_as_auth_url
+        full_as_auth_url=full_as_auth_url,
+        full_as_auth_url_print=full_as_auth_url_print
     )
     
 
