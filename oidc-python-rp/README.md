@@ -3,7 +3,7 @@ This document describes how to setup the provided Python code
 
 # Prerequisites
 
-* Python 3.4.3
+* Python
 * Homebrew if using Mac
 
 # Setup
@@ -15,7 +15,7 @@ On Mac:
     
 On Ubuntu:
 
-    apt-get install libffi-dev libsasl2-dev
+    apt-get install libffi-dev libsasl2-dev libss-dev
         
 ## Project setup
 
@@ -34,8 +34,6 @@ On Ubuntu:
   
 1. Start adding to the skeleton code:
   1. The missing parts are marked with ``TODO`` in ``oidc_rp/client.py``.
-  1. Read the [Python Cookbook](https://dirg.org.umu.se/static/pyoidc/howto/rp.html) for more
-     information about how to use the pyOIDC OpenID Connect library.
   1. Make sure to delete cookies and cached data in the browser while
      testing to avoid strange results (e.g. due to the browser caching
      redirects, etc.).
