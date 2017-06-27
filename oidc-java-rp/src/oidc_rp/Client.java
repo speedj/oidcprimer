@@ -111,14 +111,14 @@ public class Client {
 		 * 
 		 */
 
-		JsonString jsonClientID = jsonClientMetadata.getJsonString("client_id");
-		JsonString jsonClientSecret = jsonClientMetadata.getJsonString("client_secret");
+		JsonValue jsonClientID = jsonClientMetadata.get("client_id");
+		JsonValue jsonClientSecret = jsonClientMetadata.get("client_secret");
 
 		if (jsonClientID.equals(JsonValue.NULL) && jsonClientSecret.equals(JsonValue.NULL)) {
 			registerClient(clientMetadata);
 		} else {
-			ClientID clientID = new ClientID(jsonClientID.getString());
-			Secret clientSecret = new Secret(jsonClientSecret.getString());
+		    ClientID clientID = new ClientID(((JsonString) jsonClientID).getString());
+		    Secret clientSecret = new Secret(((JsonString) jsonClientSecret).getString());
 
 			clientInformation = new OIDCClientInformation(clientID, new Date(), clientMetadata, clientSecret);
 		}
