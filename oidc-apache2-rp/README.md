@@ -55,7 +55,7 @@ instructions under the `##TODO: Dynamic Registration` comment.
 READ AGAIN `Exercises Instructions`
 
 Open a browser on your host:
-- go to http://localhost:8080
+- go to http://localhost:8090
 - press the `Test authentication` button
 - when asked for your OIDC Provider insert `https://mitreid.org`
 - authenticate
@@ -76,7 +76,7 @@ ln -s /etc/apache2/sites-enabled/oidc-rp.conf-EDIT_ME /etc/apache2/sites-enabled
 ```
 
 Open a browser on your host:
-- go to http://localhost:8080
+- go to http://localhost:8090
 - follow the `Test authentication` link
 - authenticate
 - authorize the client on the OIDC Provider
