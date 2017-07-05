@@ -5,7 +5,7 @@ finally the Resource Server. It can be freely used in courses about OAuth2.
 
 ## How to run
 
-In order to use this simple client, open config.py and setup:
+In order to use this simple client, open oauth2client/config.py and setup:
 - a SECRET_KEY (see instruction in config.py)
 - an Authorization Server Authorization Endpoint in AS_AUTH_URL (or uncomment the Github one)
 - an Authorization Server Token Endpoint (or uncomment the Github one)
